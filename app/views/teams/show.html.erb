@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @team.name %>
+</p>
+
+<p>
+  <strong>Point:</strong>
+  <%= @team.point %>
+</p>
+
+<%# this a test for form  %>
+<h2>adding a new game</h2>
+<%= render "games/form" %>
+
+
+<br>
+<%= render "games/index" %>
+
+
+<%# link_to 'New Game', new_game_path %>
+
+ 
+
+
+
+<%# link_to 'Edit', edit_team_path(@team) %> |
+<%# link_to 'Back', teams_path %>
