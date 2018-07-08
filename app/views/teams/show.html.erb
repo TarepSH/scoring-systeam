@@ -12,18 +12,11 @@
 
 <%# this a test for form  %>
 <h2>adding a new game</h2>
-<%= render "games/form" %>
-
+<%= link_to 'Add new game',new_team_game_path(@team)  %>
 
 <br>
 <%= render "games/index" %>
 
 
-<%# link_to 'New Game', new_game_path %>
-
- 
-
-
-
-<%# link_to 'Edit', edit_team_path(@team) %> |
-<%# link_to 'Back', teams_path %>
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>

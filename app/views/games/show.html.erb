@@ -10,5 +10,5 @@
   <%= @game.team.name %>
 </p>
 
-<%= link_to 'Edit', edit_team_game_path(@game) %> |
-<%= link_to 'Back', team_games_path %>
+<%= link_to 'Edit', edit_team_game_path(@game.team_id, @game.id) %> |
+<%= link_to 'Back', team_path(@game.team_id) %>

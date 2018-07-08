@@ -2,5 +2,5 @@
 
 <%= render 'form', game: @game %>
 
-<%= link_to 'Show', @team_game %> |
-<%= link_to 'Back', team_path %>
+<%= link_to 'Show', team_game_path(@game.team_id, @game.id) %> |
+<%= link_to 'Back', team_path(@game.team_id) %>

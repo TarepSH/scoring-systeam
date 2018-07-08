@@ -1,6 +1,5 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
-
   # GET /games
   # GET /games.json
   def index
@@ -15,13 +14,13 @@ class GamesController < ApplicationController
 
   # GET /games/new
   def new
+    @team = Team.find(params[:team_id])
     @game = Game.new
   end
 
   # GET /games/1/edit
   def edit
      @team = Team.find(params[:team_id])
-
   end
 
   # POST /games
@@ -31,13 +30,10 @@ class GamesController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.new(game_params)
 
+
     respond_to do |format|
       if @game.save
-        if @team.point.to_i < game_params[:game_point].to_i
-          set_point = @team.games.all
-          @team.point = set_point.maximum('game_point')
-          @team.save
-        end
+        set_max_team_point
         format.html { redirect_to @team, notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else
@@ -52,6 +48,7 @@ class GamesController < ApplicationController
   def update
     respond_to do |format|
       if @game.update(game_params)
+         set_max_team_point
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
         format.json { render :show, status: :ok, location: @game }
       else
@@ -64,9 +61,9 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
-    @game.destroy
+    @game.destroy   
     respond_to do |format|
-      format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
+      format.html { redirect_to team_path(@game.team_id), notice: 'Game was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -81,4 +78,17 @@ class GamesController < ApplicationController
     def game_params
       params.require(:game).permit(:game_point, :team_id)
     end
+
+    def set_max_team_point
+      #I must add this for destroy opation, 
+      if @team_point != @team.games.maximum('game_point')
+           @team.point = @team.games.maximum('game_point')
+           @team.save
+      end
+          
+    end
+
+
 end
+
+
